@@ -14,10 +14,10 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./paperless/data:/usr/src/paperless/data
-      - ./paperless/media:/usr/src/paperless/media
-      - ./paperless/export:/usr/src/paperless/export
-      - ./paperless/consume:/usr/src/paperless/consume
+      - /volume2/Warlock/docker/container_data/paperless/data:/usr/src/paperless/data
+      - /volume2/Warlock/docker/container_data/paperless/media:/usr/src/paperless/media
+      - /volume2/Warlock/docker/container_data/paperless/export:/usr/src/paperless/export
+      - /volume2/Warlock/docker/container_data/paperless/consume:/usr/src/paperless/consume
   
   # postgres database for paperless-ngx
   postgres:
@@ -71,7 +71,7 @@ services:
     ports:
       - "3001:8080"
     volumes:
-      - ./open-webui/data:/app/backend/data
+      - /volume2/Warlock/docker/container_data/open-webui/data:/app/backend/data
 
   # ollama service for local LLMs
   ollama:
@@ -80,8 +80,8 @@ services:
     env_file:
       - ./ollama/.env
     volumes:
-      - ./ollama/data/:/root/.ollama
-      - ./ollama/models:/ollama-models
+      - /volume2/Warlock/docker/container_data/ollama/data/:/root/.ollama
+      - /volume2/Warlock/docker/container_data/ollama/models:/ollama-models
     restart: unless-stopped
     deploy:
       resources:
@@ -104,7 +104,7 @@ services:
     env_file:
       - ./paperless-ai/.env
     volumes:
-      - ./paperless-ai/data:/app/data
+      - /volume2/Warlock/docker/container_data/paperless-ai/data:/app/data
   
 
   # paperless-gpt service
@@ -120,18 +120,18 @@ services:
     env_file:
       - ./paperless-gpt/.env
     volumes:
-      - ./paperless-gpt/prompts:/app/prompts # Mount the prompts directory
+      - /volume2/Warlock/docker/container_data/paperless-gpt/prompts:/app/prompts # Mount the prompts directory
 
 
-  # optional but helpful log viewer
-  dozzle:
-    image: amir20/dozzle:latest
-    restart: unless-stopped
-    container_name: dozzle
-    env_file: 
-      - ./dozzle/.env
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./dozzle/data:/data
-    ports:
-      - "8080:8080"
+  # # optional but helpful log viewer
+  # dozzle:
+  #   image: amir20/dozzle:latest
+  #   restart: unless-stopped
+  #   container_name: dozzle
+  #   env_file: 
+  #     - ./dozzle/.env
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./dozzle/data:/data
+  #   ports:
+  #     - "8005:8080"
