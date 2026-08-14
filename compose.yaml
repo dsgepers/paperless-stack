@@ -116,7 +116,7 @@ services:
       - ollama
       - paperless
     ports:
-      - "3002:8080"
+      - "3005:8080"
     env_file:
       - ./paperless-gpt/.env
     volumes:
