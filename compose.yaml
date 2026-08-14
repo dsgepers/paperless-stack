@@ -69,7 +69,7 @@ services:
     depends_on:
       - ollama
     ports:
-      - "3001:8080"
+      - "3006:8080"
     volumes:
       - /volume2/Warlock/docker/container_data/open-webui/data:/app/backend/data
 
