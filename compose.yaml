@@ -81,15 +81,15 @@ services:
       - ./ollama/.env
     volumes:
       - /volume2/Warlock/docker/container_data/ollama/data/:/root/.ollama
-      - /volume2/Warlock/docker/container_data/ollama/models:/ollama-models
+      - /volume2/Warlock/docker/container_data/ollama/models:/ollama-models\
+    
+    environment:
+      - OLLAMA_VULKAN=1
+
+    devices:
+      - /dev/dri:/dev/dri
+      
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
 
   # paperless-ai service
   paperless-ai:
